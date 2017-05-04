@@ -22,7 +22,14 @@ public class EuclideanTorus : MonoBehaviour
             {
                 //Detach Bullet Trail 
                 Transform currentBulletTrailTransform = GetComponent<BulletController>().bulletTrailTransform;
-                currentBulletTrailTransform.parent = null;
+                if (currentBulletTrailTransform.IsChildOf(transform))
+                {
+                    currentBulletTrailTransform.parent = null;
+                }
+                else
+                {
+                    Debug.LogWarning("bullet trail's transform is not child of bullet");
+                }
 
                 TeleportToLeft();
 
@@ -41,7 +48,14 @@ public class EuclideanTorus : MonoBehaviour
             {
                 //Detach Bullet Trail 
                 Transform currentBulletTrailTransform = GetComponent<BulletController>().bulletTrailTransform;
-                currentBulletTrailTransform.parent = null;
+                if (currentBulletTrailTransform.IsChildOf(transform))
+                {
+                    currentBulletTrailTransform.parent = null;
+                }
+                else
+                {
+                    Debug.LogWarning("bullet trail's transform is not child of bullet");
+                }
 
                 TeleportToRight();
 
@@ -60,7 +74,14 @@ public class EuclideanTorus : MonoBehaviour
             {
                 //Detach Bullet Trail 
                 Transform currentBulletTrailTransform = GetComponent<BulletController>().bulletTrailTransform;
-                currentBulletTrailTransform.parent = null;
+                if (currentBulletTrailTransform.IsChildOf(transform))
+                {
+                    currentBulletTrailTransform.parent = null;
+                }
+                else
+                {
+                    Debug.LogWarning("bullet trail's transform is not child of bullet");
+                }
 
                 TeleportToBottom();
 
@@ -79,7 +100,14 @@ public class EuclideanTorus : MonoBehaviour
             {
                 //Detach Bullet Trail 
                 Transform currentBulletTrailTransform = GetComponent<BulletController>().bulletTrailTransform;
-                currentBulletTrailTransform.parent = null;
+                if (currentBulletTrailTransform.IsChildOf(transform))
+                {
+                    currentBulletTrailTransform.parent = null;
+                }
+                else
+                {
+                    Debug.LogWarning("bullet trail's transform is not child of bullet");
+                }
 
                 TeleportToTop();
 

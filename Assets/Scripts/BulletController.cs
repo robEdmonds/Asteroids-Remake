@@ -29,4 +29,16 @@ public class BulletController : MonoBehaviour
         //keep track of the trail's transform
         bulletTrailTransform = currentBulletTrail.transform;
     }
+
+    void OnDestroy()
+    {
+        if (bulletTrailTransform.IsChildOf(transform))
+        {
+            bulletTrailTransform.parent = null;
+        }
+        else
+        {
+            Debug.LogWarning("bullet trail's transform is not child of bullet");
+        }
+    }
 }

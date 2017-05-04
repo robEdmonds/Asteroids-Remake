@@ -10,29 +10,13 @@ public class BulletController : MonoBehaviour
     void Start()
     {
         // Set the bullet to destroy itself after 1 seconds
-        StartCoroutine(DetroyAfterTime(1.0f));
+        Destroy(gameObject, 1.0f);
 
         // Push the bullet in the direction it is facing
         GetComponent<Rigidbody2D>()
             .AddForce(transform.up * 400);
 
         CreateNewTrail();
-
-       
-    }
-
-    // Destory the bullet after a period of time
-    IEnumerator DetroyAfterTime(float time)
-    {
-        yield return new WaitForSeconds(time);
-
-        // Code to execute after the delay
-
-        // Detact tail
-        bulletTrailTransform.parent = null;
-
-        // Set the bullet to destroy itself
-        Destroy(gameObject);
     }
 
     //Create new bullet trail

@@ -18,23 +18,103 @@ public class EuclideanTorus : MonoBehaviour
         // Teleport the game object
         if (transform.position.x > right)
         {
+            if (tag == "Bullet")
+            {
+                //Detach Bullet Trail 
+                Transform currentBulletTrailTransform = GetComponent<BulletController>().bulletTrailTransform;
+                currentBulletTrailTransform.parent = null;
 
-            transform.position = new Vector3(left, transform.position.y, 0);
+                TeleportToLeft();
+
+                //Add new bullet trail in new location
+                GetComponent<BulletController>().CreateNewTrail();
+            }
+            else
+            {
+                TeleportToLeft();
+            }
 
         }
         else if (transform.position.x < left)
         {
-            transform.position = new Vector3(right, transform.position.y, 0);
+            if (tag == "Bullet")
+            {
+                //Detach Bullet Trail 
+                Transform currentBulletTrailTransform = GetComponent<BulletController>().bulletTrailTransform;
+                currentBulletTrailTransform.parent = null;
+
+                TeleportToRight();
+
+                //Add new bullet trail in new location
+                GetComponent<BulletController>().CreateNewTrail();
+            }
+            else
+            {
+                TeleportToRight();
+            }
         }
 
         else if (transform.position.y > top)
         {
-            transform.position = new Vector3(transform.position.x, bottom, 0);
+            if (tag == "Bullet")
+            {
+                //Detach Bullet Trail 
+                Transform currentBulletTrailTransform = GetComponent<BulletController>().bulletTrailTransform;
+                currentBulletTrailTransform.parent = null;
+
+                TeleportToBottom();
+
+                //Add new bullet trail in new location
+                GetComponent<BulletController>().CreateNewTrail();
+            }
+            else
+            {
+                TeleportToBottom();
+            }
         }
 
         else if (transform.position.y < bottom)
         {
-            transform.position = new Vector3(transform.position.x, top, 0);
+            if (tag == "Bullet")
+            {
+                //Detach Bullet Trail 
+                Transform currentBulletTrailTransform = GetComponent<BulletController>().bulletTrailTransform;
+                currentBulletTrailTransform.parent = null;
+
+                TeleportToTop();
+
+                //Add new bullet trail in new location
+                GetComponent<BulletController>().CreateNewTrail();
+            }
+            else
+            {
+                TeleportToTop();
+            }
         }
     }
+
+    //Teleport to left side of game area
+    void TeleportToLeft()
+    {
+        transform.position = new Vector3(left, transform.position.y, 0);
+    }
+
+    //Teleport to right side of game area
+    void TeleportToRight()
+    {
+        transform.position = new Vector3(right, transform.position.y, 0);
+    }
+
+    //Teleport to bottom of game area
+    void TeleportToBottom()
+    {
+        transform.position = new Vector3(transform.position.x, bottom, 0);
+    }
+
+    //Teleport to top of game area
+    void TeleportToTop()
+    {
+        transform.position = new Vector3(transform.position.x, top, 0);
+    }
+
 }

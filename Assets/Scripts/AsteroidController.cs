@@ -6,6 +6,7 @@ public class AsteroidController : MonoBehaviour
 
     public AudioClip destroy;
     public GameObject smallAsteroid;
+    public GameObject DustEmitter;
 
     private GameController gameController;
 
@@ -72,6 +73,12 @@ public class AsteroidController : MonoBehaviour
             // Play a sound
             AudioSource.PlayClipAtPoint(
                 destroy, Camera.main.transform.position);
+
+            //Create dust emitter
+            Instantiate(DustEmitter,
+                new Vector3(transform.position.x,
+                    transform.position.y, 0),
+                    Quaternion.Euler(0, 0, 0));
 
             // Add to the score
             gameController.IncrementScore();

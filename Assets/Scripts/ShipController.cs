@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class ShipController : MonoBehaviour
 {
+    bool isInvincible = false;
 
     float rotationSpeed = 100.0f;
     float thrustForce = 3f;
+
 
     public AudioClip crash;
     public AudioClip shoot;
@@ -22,7 +25,7 @@ public class ShipController : MonoBehaviour
 
         gameController =
             gameControllerObject.GetComponent<GameController>();
-    }
+}
 
     void FixedUpdate()
     {
@@ -46,7 +49,7 @@ public class ShipController : MonoBehaviour
     {
 
         // Anything except a bullet is an asteroid
-        if (c.gameObject.tag != "Bullet")
+        if (c.gameObject.tag != "Bullet" && !isInvincible)
         {
 
             AudioSource.PlayClipAtPoint
@@ -58,8 +61,15 @@ public class ShipController : MonoBehaviour
             // Remove all velocity from the ship
             GetComponent<Rigidbody2D>().
                 velocity = new Vector3(0, 0, 0);
+            GetComponent<Rigidbody2D>().
+                rotation = 0;
+
+            //Make ship temporarily invincible
+            StartCoroutine(Invincibility(2.0f));
 
             gameController.DecrementLives();
+
+           
 
         }
     }
@@ -74,5 +84,21 @@ public class ShipController : MonoBehaviour
 
         // Play a shoot sound
         AudioSource.PlayClipAtPoint(shoot, Camera.main.transform.position);
+    }
+
+    IEnumerator Invincibility(float dt)
+    {
+        Animator animator;
+        animator = GetComponent<Animator>();
+
+        // Make ship temporarily invincible
+        isInvincible = true;
+        animator.SetBool("isInvincible", true);
+
+        // suspend execution for 5 seconds
+        yield return new WaitForSeconds(dt);
+
+        isInvincible = false;
+        animator.SetBool("isInvincible", false);
     }
 }

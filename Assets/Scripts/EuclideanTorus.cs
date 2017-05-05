@@ -6,8 +6,11 @@ public class EuclideanTorus : MonoBehaviour
     //Borders of game area
     [SerializeField]
     private float right = 9.0f;
+    [SerializeField]
     private float left = -9.0f;
+    [SerializeField]
     private float top = 6.0f;
+    [SerializeField]
     private float bottom = -6.0f;
 
 

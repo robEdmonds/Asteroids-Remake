@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(Rigidbody2D))]
+
 public class BulletController : MonoBehaviour
 {
     public GameObject bulletTrail;

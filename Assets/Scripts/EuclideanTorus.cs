@@ -22,14 +22,8 @@ public class EuclideanTorus : MonoBehaviour
             {
                 //Detach Bullet Trail 
                 Transform currentBulletTrailTransform = GetComponent<BulletController>().bulletTrailTransform;
-                if (currentBulletTrailTransform.IsChildOf(transform))
-                {
-                    currentBulletTrailTransform.parent = null;
-                }
-                else
-                {
-                    Debug.LogWarning("bullet trail's transform is not child of bullet");
-                }
+                Debug.Assert(currentBulletTrailTransform.IsChildOf(transform));
+                currentBulletTrailTransform.parent = null;
 
                 TeleportToLeft();
 
@@ -48,14 +42,8 @@ public class EuclideanTorus : MonoBehaviour
             {
                 //Detach Bullet Trail 
                 Transform currentBulletTrailTransform = GetComponent<BulletController>().bulletTrailTransform;
-                if (currentBulletTrailTransform.IsChildOf(transform))
-                {
-                    currentBulletTrailTransform.parent = null;
-                }
-                else
-                {
-                    Debug.LogWarning("bullet trail's transform is not child of bullet");
-                }
+                Debug.Assert(currentBulletTrailTransform.IsChildOf(transform));
+                currentBulletTrailTransform.parent = null;
 
                 TeleportToRight();
 
@@ -74,14 +62,8 @@ public class EuclideanTorus : MonoBehaviour
             {
                 //Detach Bullet Trail 
                 Transform currentBulletTrailTransform = GetComponent<BulletController>().bulletTrailTransform;
-                if (currentBulletTrailTransform.IsChildOf(transform))
-                {
-                    currentBulletTrailTransform.parent = null;
-                }
-                else
-                {
-                    Debug.LogWarning("bullet trail's transform is not child of bullet");
-                }
+                Debug.Assert(currentBulletTrailTransform.IsChildOf(transform));
+                currentBulletTrailTransform.parent = null;
 
                 TeleportToBottom();
 
@@ -100,15 +82,9 @@ public class EuclideanTorus : MonoBehaviour
             {
                 //Detach Bullet Trail 
                 Transform currentBulletTrailTransform = GetComponent<BulletController>().bulletTrailTransform;
-                if (currentBulletTrailTransform.IsChildOf(transform))
-                {
-                    currentBulletTrailTransform.parent = null;
-                }
-                else
-                {
-                    Debug.LogWarning("bullet trail's transform is not child of bullet");
-                }
-
+                Debug.Assert(currentBulletTrailTransform.IsChildOf(transform));
+                currentBulletTrailTransform.parent = null;
+                
                 TeleportToTop();
 
                 //Add new bullet trail in new location

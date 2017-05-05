@@ -60,6 +60,7 @@ public class ShipController : MonoBehaviour
                 velocity = new Vector3(0, 0, 0);
 
             gameController.DecrementLives();
+
         }
     }
 

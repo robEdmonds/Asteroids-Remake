@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RendererSortingLayer : MonoBehaviour {
+public class TrailSortingLayer : MonoBehaviour {
 
+    public TrailRenderer trail;
+    
     public string sortingLayerName;
     public int sortingOrder;
-
+    
     // Use this for initialization
     void Start()
     {
-        Renderer renderer = GetComponent<Renderer>();
-        renderer.sortingLayerName = sortingLayerName;
-        renderer.sortingOrder = sortingOrder;
+        trail.sortingLayerName = sortingLayerName;
+        trail.sortingOrder = sortingOrder;
     }
 }

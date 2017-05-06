@@ -6,8 +6,11 @@ public class EuclideanTorus : MonoBehaviour
     //Borders of game area
     [SerializeField]
     private float right = 9.0f;
+    [SerializeField]
     private float left = -9.0f;
+    [SerializeField]
     private float top = 6.0f;
+    [SerializeField]
     private float bottom = -6.0f;
 
 
@@ -24,11 +27,18 @@ public class EuclideanTorus : MonoBehaviour
                 Transform currentBulletTrailTransform = GetComponent<BulletController>().bulletTrailTransform;
                 Debug.Assert(currentBulletTrailTransform.IsChildOf(transform));
                 currentBulletTrailTransform.parent = null;
-
+                
                 TeleportToLeft();
-
+                
                 //Add new bullet trail in new location
                 GetComponent<BulletController>().CreateNewTrail();
+
+                //Parent bullet
+                //Transform bulletTransform = transform.parent;
+                //transform.parent = null;
+
+                //Add new bullet trail in new location
+                //bulletTransform.GetComponent<BulletController>().CreateNewTrail();
             }
             else
             {

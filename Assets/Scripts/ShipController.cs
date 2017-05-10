@@ -25,7 +25,7 @@ public class ShipController : MonoBehaviour
 
         gameController =
             gameControllerObject.GetComponent<GameController>();
-}
+    }
 
     void FixedUpdate()
     {
@@ -47,36 +47,24 @@ public class ShipController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D c)
     {
-
-        // Anything except a bullet is an asteroid
-        if (c.gameObject.tag != "Bullet" && !isInvincible)
+        if(!isInvincible)
         {
-
-            AudioSource.PlayClipAtPoint
-                (crash, Camera.main.transform.position);
-
-            // Move the ship to the centre of the screen
-            transform.position = new Vector3(0, 0, 0);
-
-            // Remove all velocity from the ship
-            GetComponent<Rigidbody2D>().
-                velocity = new Vector3(0, 0, 0);
-            GetComponent<Rigidbody2D>().
-                rotation = 0;
-
-            //Make ship temporarily invincible
-            StartCoroutine(Invincibility(2.0f));
-
-            gameController.DecrementLives();
-
-           
-
+            // If the object is an enemy bullet
+            if (c.gameObject.tag == "Bullet" && !(c.gameObject.GetComponent<BulletController>().isPlayersBullet))
+            {
+                PlayerDeath();
+                Destroy(c.gameObject);
+            }
+            // If the object is an asteroid
+            else if ((c.gameObject.tag == "Large Asteroid") || (c.gameObject.tag == "Small Asteroid"))
+            {
+                PlayerDeath();
+            }
         }
     }
 
     void ShootBullet()
     {
-
         // Spawn a bullet
         Instantiate(bullet,
             new Vector3(transform.position.x, transform.position.y, 0),
@@ -85,6 +73,27 @@ public class ShipController : MonoBehaviour
         // Play a shoot sound
         AudioSource.PlayClipAtPoint(shoot, Camera.main.transform.position);
     }
+
+    void PlayerDeath()
+    {
+        AudioSource.PlayClipAtPoint
+                (crash, Camera.main.transform.position);
+
+        // Move the ship to the centre of the screen
+        transform.position = new Vector3(0, 0, 0);
+
+        // Remove all velocity from the ship
+        GetComponent<Rigidbody2D>().
+            velocity = new Vector3(0, 0, 0);
+        GetComponent<Rigidbody2D>().
+            rotation = 0;
+
+        //Make ship temporarily invincible
+        StartCoroutine(Invincibility(2.0f));
+
+        gameController.DecrementLives();
+    }
+
 
     IEnumerator Invincibility(float dt)
     {
@@ -95,7 +104,7 @@ public class ShipController : MonoBehaviour
         isInvincible = true;
         animator.SetBool("isInvincible", true);
 
-        // suspend execution for 5 seconds
+        // Wait for inviciblity to end
         yield return new WaitForSeconds(dt);
 
         isInvincible = false;

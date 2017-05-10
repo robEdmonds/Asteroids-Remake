@@ -24,14 +24,19 @@ public class EuclideanTorus : MonoBehaviour
             if (tag == "Bullet")
             {
                 //Detach Bullet Trail 
-                Transform currentBulletTrailTransform = GetComponent<BulletController>().bulletTrailTransform;
+                BulletController bc = GetComponent<BulletController>();
+                Debug.Assert(bc != null);
+
+                Transform currentBulletTrailTransform = bc.bulletTrailTransform;
+                Debug.Assert(currentBulletTrailTransform != null);
                 Debug.Assert(currentBulletTrailTransform.IsChildOf(transform));
+
                 currentBulletTrailTransform.parent = null;
                 
                 TeleportToLeft();
                 
                 //Add new bullet trail in new location
-                GetComponent<BulletController>().CreateNewTrail();
+                bc.CreateNewTrail();
 
             }
             else
@@ -45,14 +50,17 @@ public class EuclideanTorus : MonoBehaviour
             if (tag == "Bullet")
             {
                 //Detach Bullet Trail 
-                Transform currentBulletTrailTransform = GetComponent<BulletController>().bulletTrailTransform;
+                BulletController bc = GetComponent<BulletController>();
+                Debug.Assert(bc != null);
+                Transform currentBulletTrailTransform = bc.bulletTrailTransform;
+                Debug.Assert(currentBulletTrailTransform != null);
                 Debug.Assert(currentBulletTrailTransform.IsChildOf(transform));
                 currentBulletTrailTransform.parent = null;
 
                 TeleportToRight();
 
                 //Add new bullet trail in new location
-                GetComponent<BulletController>().CreateNewTrail();
+                bc.CreateNewTrail();
             }
             else
             {
@@ -65,14 +73,17 @@ public class EuclideanTorus : MonoBehaviour
             if (tag == "Bullet")
             {
                 //Detach Bullet Trail 
-                Transform currentBulletTrailTransform = GetComponent<BulletController>().bulletTrailTransform;
+                BulletController bc = GetComponent<BulletController>();
+                Debug.Assert(bc != null);
+                Transform currentBulletTrailTransform = bc.bulletTrailTransform;
+                Debug.Assert(currentBulletTrailTransform != null);
                 Debug.Assert(currentBulletTrailTransform.IsChildOf(transform));
                 currentBulletTrailTransform.parent = null;
 
                 TeleportToBottom();
 
                 //Add new bullet trail in new location
-                GetComponent<BulletController>().CreateNewTrail();
+                bc.CreateNewTrail();
             }
             else
             {
@@ -85,14 +96,17 @@ public class EuclideanTorus : MonoBehaviour
             if (tag == "Bullet")
             {
                 //Detach Bullet Trail 
-                Transform currentBulletTrailTransform = GetComponent<BulletController>().bulletTrailTransform;
+                BulletController bc = GetComponent<BulletController>();
+                Debug.Assert(bc != null);
+                Transform currentBulletTrailTransform = bc.bulletTrailTransform;
+                Debug.Assert(currentBulletTrailTransform != null);
                 Debug.Assert(currentBulletTrailTransform.IsChildOf(transform));
                 currentBulletTrailTransform.parent = null;
-                
+
                 TeleportToTop();
 
                 //Add new bullet trail in new location
-                GetComponent<BulletController>().CreateNewTrail();
+                bc.CreateNewTrail();
             }
             else
             {

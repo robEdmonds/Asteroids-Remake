@@ -3,6 +3,8 @@ using System.Collections;
 
 public class BulletController : MonoBehaviour
 {
+    public bool isPlayersBullet;
+
     public GameObject bulletTrail;
     public Transform bulletTrailTransform;
 
@@ -32,13 +34,10 @@ public class BulletController : MonoBehaviour
 
     void OnDestroy()
     {
-        if (bulletTrailTransform.IsChildOf(transform))
-        {
-            bulletTrailTransform.parent = null;
-        }
-        else
-        {
-            Debug.LogWarning("bullet trail's transform is not child of bullet");
-        }
+        //Debug.Assert(transform);
+        Debug.Assert(bulletTrailTransform);
+        //Debug.Assert(bulletTrailTransform.IsChildOf(transform));
+
+        bulletTrailTransform.parent = null;
     }
 }

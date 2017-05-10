@@ -6,6 +6,7 @@ public class GameController : MonoBehaviour
 {
 
     public GameObject asteroid;
+    public GameObject flyingSaucer;
 
     private int score;
     private int hiscore;
@@ -51,6 +52,8 @@ public class GameController : MonoBehaviour
         waveText.text = "WAVE: " + wave;
 
         SpawnAsteroids();
+
+        SpawnFlyingSaucer();
     }
 
     void SpawnAsteroids()
@@ -74,6 +77,16 @@ public class GameController : MonoBehaviour
         }
 
         waveText.text = "WAVE: " + wave;
+    }
+
+    void SpawnFlyingSaucer()
+    {
+        // Spawn enemy and determine the postion and velocity the enemy spawns
+        GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("EnemySpawnPoint");
+        Transform spawnTransform = spawnPoints[(int)Random.Range(0, spawnPoints.Length)].transform;  
+        GameObject enemy = Instantiate(flyingSaucer, spawnTransform.position, new Quaternion());
+
+        enemy.GetComponent<Rigidbody2D>().velocity = spawnTransform.up * enemy.GetComponent<EnemyController>().speed;
     }
 
     public void IncrementScore()

@@ -85,8 +85,6 @@ public class AsteroidController : MonoBehaviour
 
             // Destroy the current asteroid
             Destroy(gameObject);
-
         }
-
     }
 }

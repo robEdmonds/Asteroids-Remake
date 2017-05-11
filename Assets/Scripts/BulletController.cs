@@ -16,7 +16,7 @@ public class BulletController : MonoBehaviour
 
         // Push the bullet in the direction it is facing
         GetComponent<Rigidbody2D>()
-            .AddForce(transform.up * 400);
+            .AddForce(transform.up * 40);
 
         CreateNewTrail();
     }
@@ -34,9 +34,7 @@ public class BulletController : MonoBehaviour
 
     void OnDestroy()
     {
-        //Debug.Assert(transform);
         Debug.Assert(bulletTrailTransform);
-        //Debug.Assert(bulletTrailTransform.IsChildOf(transform));
 
         bulletTrailTransform.parent = null;
     }

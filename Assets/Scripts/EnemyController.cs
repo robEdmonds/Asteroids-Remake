@@ -68,7 +68,7 @@ public class EnemyController : MonoBehaviour {
 
     bool WithinRangeToAttack()
     {
-        GameObject player = GameObject.FindGameObjectsWithTag("Ship")[0];
+        GameObject player = GameObject.FindWithTag("Ship");
         Vector3 offset = player.transform.position - transform.position;
         float sqrLen = offset.sqrMagnitude;
         if (sqrLen < maxRangeToAttack * maxRangeToAttack)
@@ -84,7 +84,7 @@ public class EnemyController : MonoBehaviour {
     void ShootBullet()
     {
         // Find bullet target and its direction
-        GameObject player = GameObject.FindGameObjectsWithTag("Ship")[0];
+        GameObject player = GameObject.FindWithTag("Ship");
         Vector3 targetDirection = (player.transform.position - transform.position).normalized;
 
         // Determine the direction the bullet will fire

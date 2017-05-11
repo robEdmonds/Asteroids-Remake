@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class AsteroidController : MonoBehaviour
 {
 
@@ -23,7 +24,7 @@ public class AsteroidController : MonoBehaviour
 
         // Push the asteroid in the direction it is facing
         GetComponent<Rigidbody2D>()
-            .AddForce(transform.up * Random.Range(-50.0f, 150.0f));
+            .AddForce(transform.up * Random.Range(-50.0f, 150.0f) * GetComponent<Rigidbody2D>().mass);
 
         // Give a random angular velocity/rotation
         GetComponent<Rigidbody2D>()
@@ -47,19 +48,22 @@ public class AsteroidController : MonoBehaviour
                 Instantiate(smallAsteroid,
                     new Vector3(transform.position.x - .5f,
                         transform.position.y - .5f, 0),
-                        Quaternion.Euler(0, 0, 90));
+                        Quaternion.Euler(0, 0, 90))
+                        .GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity;
 
                 // Spawn small asteroids
                 Instantiate(smallAsteroid,
                     new Vector3(transform.position.x + .5f,
                         transform.position.y + .0f, 0),
-                        Quaternion.Euler(0, 0, 0));
+                        Quaternion.Euler(0, 0, 0))
+                        .GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity;
 
                 // Spawn small asteroids
                 Instantiate(smallAsteroid,
                     new Vector3(transform.position.x + .5f,
                         transform.position.y - .5f, 0),
-                        Quaternion.Euler(0, 0, 270));
+                        Quaternion.Euler(0, 0, 270))
+                        .GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity;
 
                 gameController.SplitAsteroid(); // +2
 
@@ -78,7 +82,9 @@ public class AsteroidController : MonoBehaviour
             Instantiate(DustEmitter,
                 new Vector3(transform.position.x,
                     transform.position.y, 0),
-                    Quaternion.Euler(0, 0, 0));
+                    Quaternion.Euler(0, 0, 0))
+                    .GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity;
+                    
 
             // Add to the score
             gameController.IncrementScore();

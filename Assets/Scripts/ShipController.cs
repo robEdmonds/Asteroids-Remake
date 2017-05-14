@@ -9,7 +9,6 @@ public class ShipController : MonoBehaviour
     float rotationSpeed = 100.0f;
     float thrustForce = 3f;
 
-
     public AudioClip crash;
     public AudioClip shoot;
 
@@ -44,6 +43,8 @@ public class ShipController : MonoBehaviour
             ShootBullet();
 
     }
+
+    
 
     void OnTriggerEnter2D(Collider2D c)
     {
@@ -109,5 +110,5 @@ public class ShipController : MonoBehaviour
 
         isInvincible = false;
         animator.SetBool("isInvincible", false);
-    }
+    }   
 }

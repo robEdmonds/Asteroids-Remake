@@ -35,9 +35,8 @@ public class AsteroidController : MonoBehaviour
     void OnCollisionEnter2D(Collision2D c)
     {
 
-        if (c.gameObject.tag.Equals("Bullet"))
+        if (c.gameObject.tag.Equals("Bullet") && c.gameObject.GetComponent<BulletController>().isPlayersBullet)
         {
-
             // Destroy the bullet
             Destroy(c.gameObject);
 
@@ -46,23 +45,23 @@ public class AsteroidController : MonoBehaviour
             {
                 // Spawn small asteroids
                 Instantiate(smallAsteroid,
-                    new Vector3(transform.position.x - .5f,
-                        transform.position.y - .5f, 0),
-                        Quaternion.Euler(0, 0, 90))
+                    new Vector3(transform.position.x - .55f,
+                        transform.position.y - .31f, 0),
+                        Quaternion.Euler(0, 0, 161.2f))
                         .GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity;
 
                 // Spawn small asteroids
                 Instantiate(smallAsteroid,
-                    new Vector3(transform.position.x + .5f,
-                        transform.position.y + .0f, 0),
+                    new Vector3(transform.position.x + .57f,
+                        transform.position.y + .37f, 0),
                         Quaternion.Euler(0, 0, 0))
                         .GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity;
 
                 // Spawn small asteroids
                 Instantiate(smallAsteroid,
-                    new Vector3(transform.position.x + .5f,
-                        transform.position.y - .5f, 0),
-                        Quaternion.Euler(0, 0, 270))
+                    new Vector3(transform.position.x + .23f,
+                        transform.position.y - .51f, 0),
+                        Quaternion.Euler(0, 0, 307))
                         .GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity;
 
                 gameController.SplitAsteroid(); // +2
@@ -84,7 +83,7 @@ public class AsteroidController : MonoBehaviour
                     transform.position.y, 0),
                     Quaternion.Euler(0, 0, 0))
                     .GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity;
-                    
+
 
             // Add to the score
             gameController.IncrementScore();

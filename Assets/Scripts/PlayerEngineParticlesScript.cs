@@ -46,6 +46,15 @@ public class PlayerEngineParticlesScript : MonoBehaviour {
         leftJetCoreMaxSize = leftJetCoreParticles.main.startSize.constantMax;
         leftJetFlareMinSize = leftJetFlareParticles.main.startSize.constantMin;
         leftJetFlareMaxSize = leftJetFlareParticles.main.startSize.constantMax;
+
+        Update();
+
+        backJetCoreParticles.gameObject.SetActive(true);
+        backJetFlareParticles.gameObject.SetActive(true);
+        rightJetCoreParticles.gameObject.SetActive(true);
+        rightJetFlareParticles.gameObject.SetActive(true);
+        leftJetCoreParticles.gameObject.SetActive(true);
+        leftJetFlareParticles.gameObject.SetActive(true);
     }
 	
 	// Update is called once per frame

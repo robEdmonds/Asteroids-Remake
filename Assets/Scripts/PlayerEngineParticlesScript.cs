@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PlayerEngineParticlesScript : MonoBehaviour {
 
+    public AudioController backEngineAudio;
+    public AudioController rightEngineAudio;
+    public AudioController leftEngineAudio;
+
     public ParticleSystem backJetCoreParticles;
     public ParticleSystem backJetFlareParticles;
 
@@ -30,6 +34,7 @@ public class PlayerEngineParticlesScript : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        
         /* Get the size of the engine particles */
         // Back engine
         backJetCoreMinSize = backJetCoreParticles.main.startSize.constantMin;
@@ -71,29 +76,29 @@ public class PlayerEngineParticlesScript : MonoBehaviour {
         if (Input.GetAxis("Vertical") >= 0.0f)
         {
             // Determine the size of the back engine particles 
-            backEngineMultiplier += vAxis * 1.0f;
+            backEngineMultiplier += vAxis * 0.65f;
         }
         // Moving Backward
         else
         {
             // Determine the size of the left and right engine particles 
-            rightEngineMultiplier += -vAxis * 1.0f;
-            leftEngineMultiplier += -vAxis * 1.0f;
+            rightEngineMultiplier += -vAxis * 0.6f;
+            leftEngineMultiplier += -vAxis * 0.6f;
         }
 
         // Turning Right
         if (Input.GetAxis("Horizontal") > 0.0f)
         {
             // Determine the size of the right engine particles 
-            leftEngineMultiplier += hAxis * 0.8f;
-            backEngineMultiplier += hAxis * 0.5f;
+            leftEngineMultiplier += hAxis * 0.4f;
+            backEngineMultiplier += hAxis * 0.35f;
         }
         // Turning Left
         else
         {
             // Determine the size of the left engine particles 
-            rightEngineMultiplier += -hAxis * 0.8f;
-            backEngineMultiplier += -hAxis * 0.5f;
+            rightEngineMultiplier += -hAxis * 0.4f;
+            backEngineMultiplier += -hAxis * 0.35f;
         }
 
         // Control the size of the back engine particles 
@@ -122,5 +127,10 @@ public class PlayerEngineParticlesScript : MonoBehaviour {
         ParticleSystem.MainModule leftJetCoreMain = leftJetCoreParticles.main;
         ParticleSystem.MinMaxCurve leftJetCoreCurve = new ParticleSystem.MinMaxCurve(leftEngineMultiplier * leftJetCoreMinSize, leftEngineMultiplier * leftJetCoreMaxSize);
         leftJetCoreMain.startSize = leftJetCoreCurve;
+
+        //set engine audio volume
+        backEngineAudio.SetVolume(backEngineMultiplier);
+        rightEngineAudio.SetVolume(rightEngineMultiplier);
+        leftEngineAudio.SetVolume(leftEngineMultiplier);
     }      
 }

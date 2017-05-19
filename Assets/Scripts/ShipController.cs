@@ -13,7 +13,6 @@ public class ShipController : MonoBehaviour
     public AudioClip shoot;
 
     public GameObject bullet;
-    public GameObject explosion;
 
     private GameController gameController;
 
@@ -80,13 +79,6 @@ public class ShipController : MonoBehaviour
     {
         AudioSource.PlayClipAtPoint
                 (crash, Camera.main.transform.position);
-
-        //Create explosion
-        Instantiate(explosion,
-            new Vector3(transform.position.x,
-                transform.position.y, 0),
-                Quaternion.Euler(0, 0, 0))
-                .GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity;
 
         // Move the ship to the centre of the screen
         transform.position = new Vector3(0, 0, 0);

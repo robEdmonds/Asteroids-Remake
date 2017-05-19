@@ -12,8 +12,6 @@ public class EnemyController : MonoBehaviour {
     public AudioClip shoot;
 
     public GameObject bullet;
-    public GameObject explosion;
-
     public float bulletCooldown;
     private float timeToShoot = 0.0f;
     public float maxRangeToAttack;
@@ -108,12 +106,7 @@ public class EnemyController : MonoBehaviour {
         AudioSource.PlayClipAtPoint
                 (crash, Camera.main.transform.position);
 
-        //Create explosion
-        Instantiate(explosion,
-            new Vector3(transform.position.x,
-                transform.position.y, 0),
-                Quaternion.Euler(0, 0, 0))
-                .GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity;
+
 
         Destroy(gameObject);
     }

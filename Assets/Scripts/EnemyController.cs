@@ -60,8 +60,7 @@ public class EnemyController : MonoBehaviour {
                 // Destroy the bullet
                 Destroy(c.gameObject);
 
-                AudioSource.PlayClipAtPoint
-                    (crash, Camera.main.transform.position);
+                EnemyDeath();
             }
         }
     }
@@ -100,5 +99,15 @@ public class EnemyController : MonoBehaviour {
 
         // Play a shoot sound
         AudioSource.PlayClipAtPoint(shoot, Camera.main.transform.position);
+    }
+
+    void EnemyDeath()
+    {
+        AudioSource.PlayClipAtPoint
+                (crash, Camera.main.transform.position);
+
+
+
+        Destroy(gameObject);
     }
 }

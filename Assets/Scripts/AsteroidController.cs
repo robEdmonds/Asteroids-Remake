@@ -7,7 +7,8 @@ public class AsteroidController : MonoBehaviour
 
     public AudioClip destroy;
     public GameObject smallAsteroid;
-    public GameObject DustEmitter;
+    public GameObject dustEmitter;
+    public GameObject explosion;
 
     private GameController gameController;
 
@@ -78,7 +79,14 @@ public class AsteroidController : MonoBehaviour
                 destroy, Camera.main.transform.position);
 
             //Create dust emitter
-            Instantiate(DustEmitter,
+            Instantiate(dustEmitter,
+                new Vector3(transform.position.x,
+                    transform.position.y, 0),
+                    Quaternion.Euler(0, 0, 0))
+                    .GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity;
+
+            //Create explosion
+            Instantiate(explosion,
                 new Vector3(transform.position.x,
                     transform.position.y, 0),
                     Quaternion.Euler(0, 0, 0))

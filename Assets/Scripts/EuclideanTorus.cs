@@ -5,13 +5,13 @@ public class EuclideanTorus : MonoBehaviour
 {
     //Borders of game area
     [SerializeField]
-    private float right = 9.0f;
+    protected float right = 9.0f;
     [SerializeField]
-    private float left = -9.0f;
+    protected float left = -9.0f;
     [SerializeField]
-    private float top = 6.0f;
+    protected float top = 6.0f;
     [SerializeField]
-    private float bottom = -6.0f;
+    protected float bottom = -6.0f;
 
 
     // Update is called once per frame
@@ -116,25 +116,25 @@ public class EuclideanTorus : MonoBehaviour
     }
 
     //Teleport to left side of game area
-    void TeleportToLeft()
+    protected void TeleportToLeft()
     {
         transform.position = new Vector3(left, transform.position.y, 0);
     }
 
     //Teleport to right side of game area
-    void TeleportToRight()
+    protected void TeleportToRight()
     {
         transform.position = new Vector3(right, transform.position.y, 0);
     }
 
     //Teleport to bottom of game area
-    void TeleportToBottom()
+    protected void TeleportToBottom()
     {
         transform.position = new Vector3(transform.position.x, bottom, 0);
     }
 
     //Teleport to top of game area
-    void TeleportToTop()
+    protected void TeleportToTop()
     {
         transform.position = new Vector3(transform.position.x, top, 0);
     }

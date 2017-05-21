@@ -33,71 +33,64 @@ public class AsteroidController : MonoBehaviour
 
     }
 
-    void OnCollisionEnter2D(Collision2D c)
+    public void DestoryAsteroid()
     {
-
-        if (c.gameObject.tag.Equals("Bullet") && c.gameObject.GetComponent<BulletController>().isPlayersBullet)
+        // If large asteroid spawn new ones
+        if (tag.Equals("Large Asteroid"))
         {
-            // Destroy the bullet
-            Destroy(c.gameObject);
+            // Spawn small asteroids
+            Instantiate(smallAsteroid,
+                new Vector3(transform.position.x - .55f,
+                    transform.position.y - .31f, 0),
+                    Quaternion.Euler(0, 0, 161.2f))
+                    .GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity;
 
-            // If large asteroid spawn new ones
-            if (tag.Equals("Large Asteroid"))
-            {
-                // Spawn small asteroids
-                Instantiate(smallAsteroid,
-                    new Vector3(transform.position.x - .55f,
-                        transform.position.y - .31f, 0),
-                        Quaternion.Euler(0, 0, 161.2f))
-                        .GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity;
-
-                // Spawn small asteroids
-                Instantiate(smallAsteroid,
-                    new Vector3(transform.position.x + .57f,
-                        transform.position.y + .37f, 0),
-                        Quaternion.Euler(0, 0, 0))
-                        .GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity;
-
-                // Spawn small asteroids
-                Instantiate(smallAsteroid,
-                    new Vector3(transform.position.x + .23f,
-                        transform.position.y - .51f, 0),
-                        Quaternion.Euler(0, 0, 307))
-                        .GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity;
-
-                gameController.SplitAsteroid(); // +2
-
-            }
-            else
-            {
-                // Just a small asteroid destroyed
-                gameController.DecrementAsteroids();
-            }
-
-            // Play a sound
-            AudioSource.PlayClipAtPoint(
-                destroy, Camera.main.transform.position);
-
-            //Create dust emitter
-            Instantiate(dustEmitter,
-                new Vector3(transform.position.x,
-                    transform.position.y, 0),
+            // Spawn small asteroids
+            Instantiate(smallAsteroid,
+                new Vector3(transform.position.x + .57f,
+                    transform.position.y + .37f, 0),
                     Quaternion.Euler(0, 0, 0))
                     .GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity;
 
-            //Create explosion
-            Instantiate(explosion,
-                new Vector3(transform.position.x,
-                    transform.position.y, 0),
-                    Quaternion.Euler(0, 0, 0))
+            // Spawn small asteroids
+            Instantiate(smallAsteroid,
+                new Vector3(transform.position.x + .23f,
+                    transform.position.y - .51f, 0),
+                    Quaternion.Euler(0, 0, 307))
                     .GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity;
 
+            gameController.SplitAsteroid(); // +2
 
-            // Add to the score
-            gameController.IncrementScore();
-
-            // Destroy the current asteroid
-            Destroy(gameObject);
         }
+        else
+        {
+            // Just a small asteroid destroyed
+            gameController.DecrementAsteroids();
+        }
+
+        // Play a sound
+        AudioSource.PlayClipAtPoint(
+            destroy, Camera.main.transform.position);
+
+        //Create dust emitter
+        Instantiate(dustEmitter,
+            new Vector3(transform.position.x,
+                transform.position.y, 0),
+                Quaternion.Euler(0, 0, 0))
+                .GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity;
+
+        //Create explosion
+        Instantiate(explosion,
+            new Vector3(transform.position.x,
+                transform.position.y, 0),
+                Quaternion.Euler(0, 0, 0))
+                .GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity;
+
+
+        // Add to the score
+        gameController.IncrementScore();
+
+        // Destroy the current asteroid
+        Destroy(gameObject);       
     }
 }

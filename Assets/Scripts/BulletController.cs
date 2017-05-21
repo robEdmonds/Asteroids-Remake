@@ -27,7 +27,15 @@ public class BulletController : MonoBehaviour
     {
         if(isPlayersBullet)
         {
+            AsteroidController ac = c.GetComponent<AsteroidController>();
+            if (ac != null)
+            {
+                // Destroy the asteroid
+                ac.DestoryAsteroid();
 
+                // Destroy the bullet
+                Destroy(gameObject);
+            }        
         }
     }
 

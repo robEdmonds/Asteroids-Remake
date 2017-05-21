@@ -6,8 +6,11 @@ public class ShipController : MonoBehaviour
 {
     bool isInvincible = false;
 
-    float rotationSpeed = 100.0f;
-    float thrustForce = 3f;
+    public float invinciblityTimer = 2.0f;
+    public float respawnTimer = 2.0f;
+
+    public float rotationSpeed = 100.0f;
+    public float thrustForce = 3.0f;
 
     public AudioClip crash;
     public AudioClip shoot;
@@ -29,7 +32,6 @@ public class ShipController : MonoBehaviour
 
     void FixedUpdate()
     {
-
         // Rotate the ship if necessary
         transform.Rotate(0, 0, -Input.GetAxis("Horizontal") *
             rotationSpeed * Time.deltaTime);
@@ -43,9 +45,7 @@ public class ShipController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
             ShootBullet();
 
-    }
-
-    
+    }    
 
     void OnTriggerEnter2D(Collider2D c)
     {
@@ -76,6 +76,7 @@ public class ShipController : MonoBehaviour
         AudioSource.PlayClipAtPoint(shoot, Camera.main.transform.position);
     }
 
+
     void PlayerDeath()
     {
         AudioSource.PlayClipAtPoint
@@ -88,6 +89,11 @@ public class ShipController : MonoBehaviour
                 Quaternion.Euler(0, 0, 0))
                 .GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity;
 
+        gameController.PlayerDeath();
+    }
+
+    public void RespawnPlayer()
+    {
         // Move the ship to the centre of the screen
         transform.position = new Vector3(0, 0, 0);
 
@@ -98,13 +104,14 @@ public class ShipController : MonoBehaviour
             rotation = 0;
 
         //Make ship temporarily invincible
-        StartCoroutine(Invincibility(2.0f));
+        StartCoroutine(Invincibility());
 
         gameController.DecrementLives();
     }
 
+    // COROUTINES //
 
-    IEnumerator Invincibility(float dt)
+    IEnumerator Invincibility()
     {
         Animator animator;
         animator = GetComponent<Animator>();
@@ -114,7 +121,7 @@ public class ShipController : MonoBehaviour
         animator.SetBool("isInvincible", true);
 
         // Wait for inviciblity to end
-        yield return new WaitForSeconds(dt);
+        yield return new WaitForSeconds(invinciblityTimer);
 
         isInvincible = false;
         animator.SetBool("isInvincible", false);

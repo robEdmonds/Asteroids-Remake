@@ -70,16 +70,20 @@ public class EnemyController : MonoBehaviour {
     bool WithinRangeToAttack()
     {
         GameObject player = GameObject.FindWithTag("Ship");
-        Vector3 offset = player.transform.position - transform.position;
-        float sqrLen = offset.sqrMagnitude;
-        if (sqrLen < maxRangeToAttack * maxRangeToAttack)
+        if (player != null)
         {
-            return true;
+            Vector3 offset = player.transform.position - transform.position;
+            float sqrLen = offset.sqrMagnitude;
+            if (sqrLen < maxRangeToAttack * maxRangeToAttack)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
-        else
-        {
-            return false;
-        }
+        return false;
     }
 
     void ShootBullet()

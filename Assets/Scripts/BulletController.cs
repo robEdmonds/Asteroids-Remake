@@ -5,6 +5,7 @@ public class BulletController : MonoBehaviour
 {
     public bool isPlayersBullet;
 
+    public GameObject explosion;
     public GameObject bulletTrail;
     public Transform bulletTrailTransform;
 
@@ -21,6 +22,15 @@ public class BulletController : MonoBehaviour
         CreateNewTrail();
     }
 
+
+    void OnTriggerEnter2D(Collider2D c)
+    {
+        if(isPlayersBullet)
+        {
+
+        }
+    }
+
     //Create new bullet trail
     public void CreateNewTrail()
     {
@@ -35,6 +45,12 @@ public class BulletController : MonoBehaviour
     void OnDestroy()
     {
         Debug.Assert(bulletTrailTransform);
+
+        //Create explosion
+        Instantiate(explosion,
+            new Vector3(transform.position.x,
+                transform.position.y, 0),
+                Quaternion.Euler(0, 0, 0));
 
         bulletTrailTransform.parent = null;
     }

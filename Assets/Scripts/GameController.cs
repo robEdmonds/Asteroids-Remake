@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
-
+    public GameObject player;
     public GameObject asteroid;
     public GameObject flyingSaucer;
 
@@ -15,17 +15,22 @@ public class GameController : MonoBehaviour
     private int lives;
     private int wave;
     private int increaseEachWave = 4;
+    private float enemySpawnRate = 30.0f;
 
     public Text scoreText;
     public Text livesText;
     public Text waveText;
     public Text hiscoreText;
 
+    private IEnumerator EnemySpawner;
+
     // Use this for initialization
     void Start()
     {
+        EnemySpawner = FlyingSaucerSpawner();
 
         hiscore = PlayerPrefs.GetInt("hiscore", 0);
+
         BeginGame();
     }
 
@@ -53,7 +58,8 @@ public class GameController : MonoBehaviour
 
         SpawnAsteroids();
 
-        SpawnFlyingSaucer();
+        DestoryExistingEnemies();
+        StartCoroutine(EnemySpawner);
     }
 
     void SpawnAsteroids()
@@ -76,7 +82,7 @@ public class GameController : MonoBehaviour
             while (usedSpawnPositions.IndexOf(RandomIndex) != -1 && usedSpawnPositions.Count < spawnPoints.Length)
             {
                 RandomIndex++;
-                if(RandomIndex >= spawnPoints.Length)
+                if (RandomIndex >= spawnPoints.Length)
                 {
                     RandomIndex = 0;
                 }
@@ -108,11 +114,20 @@ public class GameController : MonoBehaviour
         waveText.text = "WAVE: " + wave;
     }
 
+    IEnumerator FlyingSaucerSpawner()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(enemySpawnRate / (float)wave);
+            SpawnFlyingSaucer();
+        }
+    }
+
     void SpawnFlyingSaucer()
     {
         // Spawn enemy and determine the postion and velocity the enemy spawns
         GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("EnemySpawnPoint");
-        Transform spawnTransform = spawnPoints[(int)Random.Range(0, spawnPoints.Length - 0.01f)].transform;  
+        Transform spawnTransform = spawnPoints[(int)Random.Range(0, spawnPoints.Length - 0.01f)].transform;
         GameObject enemy = Instantiate(flyingSaucer, spawnTransform.position, new Quaternion());
 
         enemy.GetComponent<Rigidbody2D>().velocity = spawnTransform.up * enemy.GetComponent<EnemyController>().speed;
@@ -189,5 +204,39 @@ public class GameController : MonoBehaviour
         {
             GameObject.Destroy(current);
         }
+    }
+
+    void DestoryExistingEnemies()
+    {
+        GameObject[] enemies =
+           GameObject.FindGameObjectsWithTag("Enemy");
+
+        foreach (GameObject current in enemies)
+        {
+            GameObject.Destroy(current);
+        }
+
+        //Reset the coroutine
+        StopCoroutine(EnemySpawner);
+        EnemySpawner = FlyingSaucerSpawner();
+    }
+
+    public void PlayerDeath()
+    {
+        StartCoroutine(PlayerDeathCoroutine());
+    }
+
+    IEnumerator PlayerDeathCoroutine()
+    {
+        player.SetActive(false);
+
+        ShipController playerController = player.GetComponent<ShipController>();
+        Debug.Assert(playerController);
+        // Wait to respawn
+        yield return new WaitForSeconds(playerController.respawnTimer);
+
+        player.SetActive(true);
+
+        playerController.RespawnPlayer();
     }
 }

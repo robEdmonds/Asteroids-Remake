@@ -92,7 +92,7 @@ public class ShipController : MonoBehaviour
         gameController.PlayerDeath();
     }
 
-    public void RespawnPlayer()
+    public void ResetPlayer()
     {
         // Move the ship to the centre of the screen
         transform.position = new Vector3(0, 0, 0);
@@ -103,10 +103,15 @@ public class ShipController : MonoBehaviour
         GetComponent<Rigidbody2D>().
             rotation = 0;
 
+        gameController.DecrementLives();
+    }
+
+    public void RespawnPlayer()
+    {
+        ResetPlayer();
+
         //Make ship temporarily invincible
         StartCoroutine(Invincibility());
-
-        gameController.DecrementLives();
     }
 
     // COROUTINES //

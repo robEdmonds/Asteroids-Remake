@@ -237,6 +237,13 @@ public class GameController : MonoBehaviour
 
         player.SetActive(true);
 
-        playerController.RespawnPlayer();
+        if (lives > 1)
+        {
+            playerController.RespawnPlayer();
+        }
+        else
+        {
+            playerController.ResetPlayer();
+        }
     }
 }

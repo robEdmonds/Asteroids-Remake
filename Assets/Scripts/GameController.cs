@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -38,9 +39,11 @@ public class GameController : MonoBehaviour
     void Update()
     {
         // Quit if player presses escape
-        if (Input.GetKey("escape"))
-            Application.Quit();
-
+        // Quit game
+        if (Input.GetButtonDown("Cancel"))
+        {
+            SceneManager.LoadScene("Scene/Menu");
+        }
     }
 
     void BeginGame()
@@ -51,10 +54,10 @@ public class GameController : MonoBehaviour
         wave = 1;
 
         // Prepare the HUD
-        scoreText.text = "SCORE:" + score;
+        scoreText.text = "SCORE " + score;
         hiscoreText.text = "HISCORE: " + hiscore;
-        livesText.text = "LIVES: " + lives;
-        waveText.text = "WAVE: " + wave;
+        livesText.text = "x" + lives;
+        waveText.text = "WAVE " + wave;
 
         SpawnAsteroids();
 
@@ -111,7 +114,7 @@ public class GameController : MonoBehaviour
             }
         }
 
-        waveText.text = "WAVE: " + wave;
+        waveText.text = "WAVE " + wave;
     }
 
     IEnumerator FlyingSaucerSpawner()
@@ -133,11 +136,11 @@ public class GameController : MonoBehaviour
         enemy.GetComponent<Rigidbody2D>().velocity = spawnTransform.up * enemy.GetComponent<EnemyController>().speed;
     }
 
-    public void IncrementScore()
+    public void IncrementScore(int addedScore = 1)
     {
-        score++;
+        score += addedScore;
 
-        scoreText.text = "SCORE:" + score;
+        scoreText.text = "SCORE " + score;
 
         if (score > hiscore)
         {
@@ -162,7 +165,7 @@ public class GameController : MonoBehaviour
     public void DecrementLives()
     {
         lives--;
-        livesText.text = "LIVES: " + lives;
+        livesText.text = "x" + lives;
 
         // Has player run out of lives?
         if (lives < 1)

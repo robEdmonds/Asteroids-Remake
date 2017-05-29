@@ -23,11 +23,11 @@ public class EnemyController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         // Get a reference to the game controller object and the script
-       // GameObject gameControllerObject =
-        //    GameObject.FindWithTag("GameController");
+        GameObject gameControllerObject =
+            GameObject.FindWithTag("GameController");
 
-       // gameController =
-       //     gameControllerObject.GetComponent<GameController>();
+        gameController =
+            gameControllerObject.GetComponent<GameController>();
 
         // Destory enemy after the end of its lifespan
         Destroy(gameObject, lifeSpan);
@@ -118,6 +118,8 @@ public class EnemyController : MonoBehaviour {
                 transform.position.y, 0),
                 Quaternion.Euler(0, 0, 0))
                 .GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity;
+
+        gameController.IncrementScore();
 
         Destroy(gameObject);
     }

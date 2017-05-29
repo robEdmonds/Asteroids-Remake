@@ -42,7 +42,7 @@ public class ShipController : MonoBehaviour
                 Input.GetAxis("Vertical"));
 
         // Has a bullet been fired
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetButtonDown("Fire1") || Input.GetMouseButtonDown(0))
             ShootBullet();
 
     }    
